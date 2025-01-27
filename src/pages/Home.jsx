@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Header from '../components/Header'
 import { Link } from 'react-router-dom'
+import { fetchProducts } from '../redux/slices/productSlice'
+import { useDispatch } from 'react-redux'
 const Home = () => {
+  const dispath=useDispatch()
+ useEffect(()=>{
+  dispath(fetchProducts())
+ },[])
   return (
     <>
-    <Header/>
+    <Header insideHome={true}/>
     <div style={{paddingTop:'100px'}} className='container px-4 mx-auto' >
       <div className="grid grid-cols-4 gap-4">
         <div className="rounded border p-2 shadow">
