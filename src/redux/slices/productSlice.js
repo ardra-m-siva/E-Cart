@@ -37,4 +37,4 @@ import axios from "axios";
     }
  })
 
-export default productSlice
+export default productSlice.reducer
