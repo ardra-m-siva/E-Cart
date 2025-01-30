@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import Header from '../components/Header'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { decremenQuantity, emptyCart, incrementQuantity, removeCartItem } from '../redux/slices/cartSlice'
 
 const Cart = () => {
-
+    const navigate=useNavigate()
     const userCart = useSelector(state => state.cartReducer)
     const [cartTotal,setCartTotal]=useState(0)
     useEffect(()=>{
@@ -15,10 +15,17 @@ const Cart = () => {
     },[userCart])
     const dispatch=useDispatch()
 
+    const checkOut=()=>{
+        dispatch(emptyCart())
+        alert("Order Confirmed .. Thank You")
+        // navigate to home using the useNavigate hook
+        navigate('/')
+    }
+
     return (
         <>
             <Header />
-            <div style={{ paddingTop: '100px' }} className='px-5'>
+            <div style={{ paddingTop: '100px' }} className='px-5 min-h-screen'>
                 {
 
                     userCart.length > 0 ?
@@ -69,7 +76,7 @@ const Cart = () => {
                                     <div className='border rounded shadow p-5'>
                                         <h2 className='text-2xl font-bold m-2'>Total Amount: <span className='text-red-600'> ${cartTotal} </span></h2>
                                         <hr />
-                                        <button className='bg-green-700 rounded text-white w-full p-2 mt-5'>Check Out</button>
+                                        <button onClick={checkOut} className='bg-green-700 rounded text-white w-full p-2 mt-5'>Check Out</button>
                                     </div>
 
                                 </div>
